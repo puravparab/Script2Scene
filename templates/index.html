@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Script2Scene</title>
+</head>
+<body>
+	<h1>Script2Scene</h1>
+	<form method="post">
+		<label for="manim_code">Enter Manim Code:</label><br>
+		<textarea name="manim_code" rows="10" cols="50"></textarea><br>
+		<input type="submit" value="Generate Animation">
+	</form>
+	<div id="video-container">
+		<video width="640" height="480" controls>
+			<source src="{{ url_for('serve_video', filename='animation.mp4') }}?v={{ some_unique_value }}" type="video/mp4">
+			Your browser does not support the video tag.
+		</video>
+	</div>
+</body>
+</html>
