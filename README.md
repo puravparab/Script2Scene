@@ -1,5 +1,5 @@
 # Script2Scene
-Upload a script or prompt and generate an animation
+Upload a script and generate an animation
 
 ## Getting Started
 
