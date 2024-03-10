@@ -1,20 +1,101 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Script2Scene</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.68.0/codemirror.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.68.0/codemirror.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.68.0/mode/python/python.min.js"></script>
+	<style>
+		body {
+			background-color: #1e1e1e; /* Darker background color */
+			color: #ffffff; /* Text color */
+			font-family: Arial, sans-serif;
+			text-align: center;
+			padding: 20px;
+		}
+
+		h1 {
+			color: #61dafb; /* Header color */
+		}
+
+		#container {
+			display: flex;
+			justify-content: space-around;
+			align-items: flex-start;
+			flex-wrap: wrap;
+			margin-top: 20px;
+		}
+
+		form {
+			flex: 1;
+			padding: 20px;
+			border-radius: 10px;
+			box-sizing: border-box;
+			margin: 10px;
+		}
+
+		#manim_code {
+			width: 100%;
+			padding: 10px;
+			margin: 10px 0;
+			box-sizing: border-box;
+			background-color: #444; /* Updated textarea background color */
+			color: #ffffff; /* Text color inside textarea */
+			height: 60vh;
+		}
+
+		input[type="submit"] {
+			background-color: #61dafb; /* Submit button color */
+			color: #ffffff;
+			padding: 10px 20px;
+			border: none;
+			cursor: pointer;
+			font-size: 16px;
+		}
+
+		#video-container {
+			flex: 1;
+			display: flex;
+			justify-content: center;
+			box-sizing: border-box;
+			margin: 30px;
+		}
+
+		video {
+			width: 100%;
+			height: auto;
+			max-width: 640px;
+			max-height: 480px;
+		}
+
+		.CodeMirror {
+			height: auto;
+		}
+	</style>
 </head>
 <body>
 	<h1>Script2Scene</h1>
-	<form method="post">
-		<label for="manim_code">Enter Manim Code:</label><br>
-		<textarea name="manim_code" rows="10" cols="50"></textarea><br>
-		<input type="submit" value="Generate Animation">
-	</form>
-	<div id="video-container">
-		<video width="640" height="480" controls>
-			<source src="{{ url_for('serve_video', filename='animation.mp4') }}?v={{ some_unique_value }}" type="video/mp4">
-			Your browser does not support the video tag.
-		</video>
+	<div id="container">
+		<form method="post" onsubmit="return isPythonCodeValid();">
+			<textarea id="manim_code" name="manim_code" placeholder="Paste your Manim code here"></textarea><br>
+			<input type="submit" value="Generate Animation">
+		</form>
+		<div id="video-container">
+			<video controls>
+				<source src="{{ url_for('serve_video', filename='animation.mp4') }}?v={{ some_unique_value }}" type="video/mp4">
+				Your browser does not support the video tag.
+			</video>
+		</div>
 	</div>
+
+	<script>
+		var editor = CodeMirror.fromTextArea(document.getElementById("manim_code"), {
+			mode: "python",
+			lineNumbers: true,
+			theme: "default" // You can change the theme if needed
+		});
+	</script>
 </body>
 </html>
