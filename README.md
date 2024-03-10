@@ -29,5 +29,5 @@ Upload a manim script and generate an animation
 - If you encounter permission issues, you may need to make the shell script executable:
 
 	```bash
-	chmod +x run_flask.sh
+	chmod +x run.sh
 	```
